@@ -54,7 +54,9 @@ function App() {
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "800px", fontFamily: "EB Garamond", margin: "0 auto" }}>
+    <div style={{ padding: "20px", borderRadius: "5px", maxWidth: "800px", fontFamily: "EB Garamond", margin: "0 auto" }}>
+
+      <h1 style= {{ padding: "10px 20px", backgroundColor: "#dcd0ea", color: "white", fontSize: "15px" }}> helen todo banner dedicated to what this project entails </h1>
 
       <h2>Creative Writing Assistant</h2>
 
@@ -70,7 +72,7 @@ function App() {
           style={{ padding: "10px", fontFamily: "EB Garamond", fontSize: "16px", width: "100%" }}
         />
 
-        <h1 style={{ fontSize: "20px" }}>testing testing</h1>
+        <h1 style={{ fontSize: "20px" }}>helen todo how to use the tool etc etc testing testing</h1>
 
       </div>
 
