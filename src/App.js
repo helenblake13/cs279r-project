@@ -54,7 +54,7 @@ function App() {
   };
 
   return (
-    <div style={{ borderRadius: "5px", fontFamily: "EB Garamond", margin: "0 auto" }}>
+    <div style={{ fontFamily: "EB Garamond", margin: "0 auto" }}>
 
       <h1 style= {{ padding: "10px 20px", backgroundColor: "#dcd0ea", color: "white", fontSize: "15px", textAlign: "center", width: "100vw", margin: "0", boxSizing: "border-box" }}> Welcome! Please enter a piece of fiction and highlight the sentence you wish to be replaced. </h1>
 
@@ -62,7 +62,7 @@ function App() {
 
         <h2>Creative Writing Assistant</h2>
 
-        <div style={{ display: "flex", alignItems: "center", columnGap: "25px" }}>
+        <div style={{ display: "flex", alignItems: "center", columnGap: "45px" }}>
           
           <textarea
             value={story}
@@ -71,17 +71,22 @@ function App() {
             rows="10"
             cols="60"
             placeholder="Paste your story here..."
-            style={{ padding: "10px", fontFamily: "EB Garamond", fontSize: "16px", width: "700px", height: "350px", resize: "none" }}
+            style={{ padding: "10px", fontFamily: "EB Garamond", fontSize: "16px", width: "900px", height: "350px", resize: "none" }}
           />
 
-          <h1 style={{ fontSize: "15px", fontWeight: "lighter", alignItems: "justify", maxWidth: "250px" }}> Hello! We're glad you're here.  
-          The three of us are currently students in COMPSCI 2790r, a class dedicated to AI-human interactions, 
-          and we wish to utilize LLMs to augment the creative experience for writers. In particular, when 
-          creative writers use LLMs in the editing process of their work, the LLM often becomes a black box, 
-          and we aim to dispel any disconnect in the communication between LLM and user. Specifically, we are using 
-          an OpenAI to structure a given explanation for the sentence replacement in terms that might resonate more with 
-          creative writers. If you have any questions, please feel free to reach out to us at: helenblake@college.harvard.edu, 
-          benchoi@college.harvard.edu, or jorontopratt@college.harvard.edu.</h1>
+          <div style = {{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+
+            <h1 style = {{ fontSize: "18px", fontWeight: "bold", textAlign: "center", maxWidth: "300px", color: "white", backgroundColor: "#dcd0ea", borderRadius: "5px", padding: "10px 30px" }}> Note from the Creators </h1>
+            <h1 style={{ fontSize: "15px", fontWeight: "lighter", alignItems: "justify", maxWidth: "350px", border: "1px solid black", borderRadius: "5px", padding: "10px", boxSizing: "border-box" }}> Hello! We're glad you're here.  
+            The three of us are currently students in COMPSCI 2790r, a class dedicated to AI-human interactions, 
+            and we wish to utilize LLMs to augment the creative experience for writers. In particular, when 
+            creative writers use LLMs in the editing process of their work, the LLM often becomes a black box, 
+            and we aim to dispel any disconnect in the communication between LLM and user. Specifically, we are using 
+            an OpenAI to structure a given explanation for the sentence replacement in terms that might resonate more with 
+            creative writers. If you have any questions, please feel free to reach out to us at: helenblake@college.harvard.edu, 
+            benchoi@college.harvard.edu, or jorontopratt@college.harvard.edu.</h1>
+
+          </div>
 
         </div>
 
@@ -105,26 +110,30 @@ function App() {
           {isLoading ? "Processing..." : "Analyze Highlighted Text"}
         </button>
 
-        {highlightedText && (
-          <div style={{ marginTop: "20px" }}>
-            <h3>Highlighted Sentence:</h3>
-            <p style = {{ overflowWrap: "anywhere" }}>{highlightedText}</p>
-          </div>
-        )}
+        <div style = {{ maxWidth: "1100px" }}>
 
-        {analysis && (
-          <div style={{ marginTop: "20px" }}>
-            <h3>Analysis:</h3>
-            <p style={{ whiteSpace: "pre-wrap", overflowWrap: "normal", fontFamily: "EB Garamond" }}>{analysis}</p>
-          </div>
-        )}
+          {highlightedText && (
+            <div style={{ marginTop: "20px" }}>
+              <h3>Highlighted Sentence:</h3>
+              <p style = {{ overflowWrap: "normal", fontFamily: "EB Garamond" }}>{highlightedText}</p>
+            </div>
+          )}
 
-        {rewrite && (
-          <div style={{ marginTop: "20px" }}>
-            <h3>Rewritten Version:</h3>
-            <p style={{ whiteSpace: "pre-wrap", overflowWrap: "normal", fontFamily: "EB Garamond" }}>{rewrite}</p>
-          </div>
-        )}
+          {analysis && (
+            <div style={{ marginTop: "20px" }}>
+              <h3>Analysis:</h3>
+              <p style={{ whiteSpace: "pre-wrap", overflowWrap: "normal", fontFamily: "EB Garamond" }}>{analysis}</p>
+            </div>
+          )}
+
+          {rewrite && (
+            <div style={{ marginTop: "20px" }}>
+              <h3>Rewritten Version:</h3>
+              <p style={{ whiteSpace: "pre-wrap", overflowWrap: "normal", fontFamily: "EB Garamond" }}>{rewrite}</p>
+            </div>
+          )}
+
+        </div>
       </div>
       
     </div>
