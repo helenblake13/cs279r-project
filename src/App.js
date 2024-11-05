@@ -56,7 +56,7 @@ function App() {
   return (
     <div style={{ fontFamily: "EB Garamond", margin: "0 auto" }}>
 
-      <h1 style= {{ padding: "10px 20px", backgroundColor: "#dcd0ea", color: "white", fontSize: "15px", textAlign: "center", width: "100vw", margin: "0", boxSizing: "border-box" }}> Welcome! Please enter a piece of fiction and highlight the sentence you wish to be replaced. </h1>
+      <h1 style= {{ padding: "10px 20px", backgroundColor: "#341539", color: "white", fontSize: "15px", textAlign: "center", width: "100vw", margin: "0", boxSizing: "border-box" }}> Welcome! Please enter a piece of fiction and highlight the sentence you wish to be replaced. </h1>
 
       <div style = {{ marginLeft: "5%" }}>
 
@@ -76,7 +76,7 @@ function App() {
 
           <div style = {{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 
-            <h1 style = {{ fontSize: "18px", fontWeight: "bold", textAlign: "center", maxWidth: "300px", color: "white", backgroundColor: "#dcd0ea", borderRadius: "5px", padding: "10px 30px" }}> Note from the Creators </h1>
+            <h1 style = {{ fontSize: "18px", fontWeight: "bold", textAlign: "center", maxWidth: "300px", color: "white", backgroundColor: "#341539", borderRadius: "5px", padding: "10px 30px" }}> Note from the Creators </h1>
             <h1 style={{ fontSize: "15px", fontWeight: "lighter", alignItems: "justify", maxWidth: "350px", border: "1px solid black", borderRadius: "5px", padding: "10px", boxSizing: "border-box" }}> Hello! We're glad you're here.  
             The three of us are currently students in COMPSCI 2790r, a class dedicated to AI-human interactions, 
             and we wish to utilize LLMs to augment the creative experience for writers. In particular, when 
@@ -98,7 +98,7 @@ function App() {
             padding: "10px 20px",
             fontFamily: "EB Garamond",
             fontSize: "16px",
-            backgroundColor: "#dcd0ea",
+            backgroundColor: "#341539",
             color: "white",
             border: "none",
             borderRadius: "5px",
