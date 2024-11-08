@@ -53,6 +53,40 @@ function App() {
     }
   };
 
+    // Handle form submission to analyze highlighted word
+    const handleWordSubmit = async () => {
+      if (highlightedText) {
+        setIsLoading(true);
+        try {
+          const response = await fetch("http://localhost:5001/api/analyze", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              story: story,
+              highlighted: highlightedText,
+            }),
+          });
+  
+          const data = await response.json();
+          if (response.ok) {
+            setAnalysis(data.analysis);
+            setRewrite(data.rewrite);
+          } else {
+            alert("Error: " + data.error);
+          }
+        } catch (error) {
+          console.error("Error:", error);
+          alert("Failed to connect to the server");
+        } finally {
+          setIsLoading(false);
+        }
+      } else {
+        alert("Please highlight a word!");
+      }
+    };
+
   return (
     <div style={{ fontFamily: "EB Garamond", margin: "0 auto" }}>
 
@@ -108,6 +142,26 @@ function App() {
           disabled={isLoading}
         >
           {isLoading ? "Processing..." : "Analyze Highlighted Text"}
+        </button>
+
+        <button 
+          onClick={handleWordSubmit}
+          style={{
+            marginTop: "10px",
+            marginLeft: "10px",
+            padding: "10px 20px",
+            fontFamily: "EB Garamond",
+            fontSize: "16px",
+            backgroundColor: "#341539",
+            color: "white",
+            border: "none",
+            borderRadius: "5px",
+            cursor: isLoading ? "not-allowed" : "pointer",
+            opacity: isLoading ? 0.7 : 1,
+          }}
+          disabled={isLoading}
+        >
+          {isLoading ? "Processing..." : "Replace Word"}
         </button>
 
         <div style = {{ maxWidth: "1100px" }}>
