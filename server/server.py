@@ -22,27 +22,60 @@ def generate_response(prompt, model="gpt-3.5-turbo", max_tokens=150, temperature
     )
     return response['choices'][0]['message']['content']
 
-def creative_personalization(prompt):
-    # Creating a structured analysis prompt for the OpenAI API
+def analyze_text(prompt):
+    """
+    Analyzes the text for design elements such as tone, character traits, and style.
+    """
     analysis_prompt = f"""
-    You are a personalized sentence replacement AI that is designed to work specifically with creative writers. Your job is to analyze the following story or portion of a story and provide a detailed analysis. You must output a very structured paragraph describing the design choices you observe, with explanations specifically in tune with the author's characters and their personalities, the cadence of their writing or style of vocabulary, the structure of their sentences, and any recurring objects or symbols used by the author. Focus on identifying these key elements in the text provided:
+    You are a personalized sentence replacement AI for creative writers. Your job is to analyze the following text for:
+    - Character traits and personalities.
+    - Cadence, vocabulary style, and unique structures.
+    - Recurring objects or symbols.
+    - Tone and voice, focusing on word choice frequency and grounded qualities.
+
+    Analyze the text and provide a structured paragraph describing these elements:
 
     '{prompt}'
     """
-    analysis_response = generate_response(analysis_prompt, max_tokens=350)
+    return generate_response(analysis_prompt, max_tokens=350)
 
-    rewrite_prompt = f"""
-    Based on the analysis provided below:
-
-    {analysis_response}
-
-    Now, please rewrite the following sentence in the context of the story, keeping the nuances, style, and structure intact. Explain your design choices for the rewritten sentence:
-
-    '{prompt}'
+def rewrite_text(prompt, analysis_response, mode='sentence'):
     """
-    final_rewrite = generate_response(rewrite_prompt, max_tokens=150)
+    Rewrites the text based on the analysis, either replacing a word or rewriting a sentence.
+    """
+    if mode == 'word':
+        rewrite_prompt = f"""
+        Based on the analysis provided below:
 
-    return {"analysis": analysis_response, "rewrite": final_rewrite}
+        {analysis_response}
+
+        Replace a significant word in the sentence below with another word that maintains the author's tone, voice, and specific characteristics. Explain the choice briefly:
+
+        '{prompt}'
+        """
+    elif mode == 'sentence':
+        rewrite_prompt = f"""
+        Based on the analysis provided below:
+
+        {analysis_response}
+
+        Rewrite the following sentence while maintaining the original author's tone and voice. Identify key features of their style and ensure these are preserved. Explain the design choices briefly:
+
+        '{prompt}'
+        """
+    return generate_response(rewrite_prompt, max_tokens=150)
+
+def creative_personalization(prompt, mode='sentence'):
+    """
+    Combines analysis and rewriting functions for a chained output.
+    """
+    analysis_response = analyze_text(prompt)
+    rewrite_response = rewrite_text(prompt, analysis_response, mode)
+    
+    if mode == 'word':
+        return {"analysis": analysis_response, "word_replacement": rewrite_response}
+    else:
+        return {"analysis": analysis_response, "sentence_rewrite": rewrite_response}
 
 @app.route('/api/analyze', methods=['POST'])
 def analyze():
@@ -52,9 +85,10 @@ def analyze():
 
     story = data.get("story", "")
     highlighted_text = data.get("highlighted", "")
+    mode = data.get("mode", "sentence")
 
     # Using the creative_personalization function to analyze and rewrite
-    response = creative_personalization(highlighted_text or story)
+    response = creative_personalization(highlighted_text or story, mode)
 
     return jsonify(response)
 
