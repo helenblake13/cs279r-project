@@ -109,7 +109,7 @@ function App() {
             style={{ padding: "10px", fontFamily: "EB Garamond", fontSize: "16px", width: "900px", height: "350px", resize: "none" }}
           />
 
-          <div style = {{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <div style = {{ display: "flex", flexDirection: "column", alignItems: "center" }}>
 
             <h1 style = {{ fontSize: "18px", fontWeight: "bold", textAlign: "center", maxWidth: "300px", color: "white", backgroundColor: "#341539", borderRadius: "5px", padding: "10px 30px" }}> Note from the Creators </h1>
             <h1 style={{ fontSize: "15px", fontWeight: "lighter", alignItems: "justify", maxWidth: "350px", border: "1px solid black", borderRadius: "5px", padding: "10px", boxSizing: "border-box" }}> Hello! We're glad you're here.  
@@ -118,8 +118,8 @@ function App() {
             creative writers use LLMs in the editing process of their work, the LLM often becomes a black box, 
             and we aim to dispel any disconnect in the communication between LLM and user. Specifically, we are using 
             an OpenAI to structure a given explanation for the sentence replacement in terms that might resonate more with 
-            creative writers. If you have any questions, please feel free to reach out to us at: benchoi@college.harvard.edu, 
-            helenblake@college.harvard.edu, or jorontopratt@college.harvard.edu.</h1>
+            creative writers. If you have any questions, please feel free to reach out to us at <a href="mailto:benchoi@college.harvard.edu">benchoi@college.harvard.edu</a>,
+            <a href="mailto:helenblake@college.harvard.edu"> helenblake@college.harvard.edu</a>, or <a href="mailto:jorontopratt@college.harvard.edu">jorontopratt@college.harvard.edu</a>.</h1>
 
           </div>
 
@@ -142,7 +142,7 @@ function App() {
           }}
           disabled={isLoading}
         >
-          {isLoading ? "Processing..." : "Analyze Highlighted Text"}
+          {isLoading ? "Processing..." : "Replace sentence"}
         </button>
 
         <button 
