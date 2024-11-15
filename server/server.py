@@ -28,10 +28,10 @@ def analyze_text(prompt):
     """
     analysis_prompt = f"""
     You are a personalized sentence replacement AI for creative writers. Your job is to analyze the following text for:
+    - Tone and voice [KEY FOCUS], focusing on word choice frequency and grounded qualities.
     - Character traits and personalities.
     - Cadence, vocabulary style, and unique structures.
     - Recurring objects or symbols.
-    - Tone and voice, focusing on word choice frequency and grounded qualities.
 
     Analyze the text and provide a structured paragraph describing these elements:
 
@@ -59,7 +59,7 @@ def rewrite_text(prompt, analysis_response, mode='sentence'):
 
         {analysis_response}
 
-        Rewrite the following sentence while maintaining the original author's tone and voice. Identify key features of their style and ensure these are preserved. Explain the design choices briefly:
+        Rewrite the following sentence while maintaining the original author's tone and voice. Identify key features of their style and ensure these are preserved. Make sure your sentence is distinct from the original. Explain the design choices briefly:
 
         '{prompt}'
         """
