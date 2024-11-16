@@ -40,8 +40,7 @@ def analyze():
         prompt = f"""
         Replace the word '{highlighted_text}' in the following text:
         '{story}'
-        
-        Provide a replacement word that fits seamlessly into the sentence and maintains its meaning and tone.
+        Provide a single word replacement as your output.
         """
         response = generate_response(prompt, max_tokens=20)
         return jsonify({"word_replacement": response.strip()})
@@ -50,8 +49,7 @@ def analyze():
         prompt = f"""
         Rewrite the sentence:
         '{highlighted_text}'
-
-        Provide an alternative version that preserves the meaning but offers a fresh structure. Avoid flowery or terse language.
+        Provide a single sentence replacement as your output.
         """
         response = generate_response(prompt, max_tokens=150)
         return jsonify({"sentence_rewrite": response.strip()})
