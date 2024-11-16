@@ -1,19 +1,20 @@
-# server/server2.py
-
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 import openai
 
-load_dotenv()  # Load environment variables from .env file
-
-openai.api_key = os.getenv('OPENAI_API_KEY')  # Get the OpenAI API key from .env
+# Load environment variables from .env file
+load_dotenv()
+openai.api_key = os.getenv('OPENAI_API_KEY')
 
 app = Flask(__name__)
 CORS(app)  # Allow cross-origin requests from frontend
 
 def generate_response(prompt, model="gpt-3.5-turbo", max_tokens=150, temperature=0.7):
+    """
+    Generate a direct response from OpenAI's ChatCompletion API.
+    """
     response = openai.ChatCompletion.create(
         model=model,
         messages=[{"role": "user", "content": prompt}],
@@ -22,40 +23,40 @@ def generate_response(prompt, model="gpt-3.5-turbo", max_tokens=150, temperature
     )
     return response['choices'][0]['message']['content']
 
-def rewrite_text(prompt, mode='sentence'):
-    """
-    Rewrites the text directly, either replacing a word or rewriting a sentence.
-    """
-    if mode == 'word':
-        rewrite_prompt = f"""
-        Replace the word with a suitable alternative. Explain your choice:
-
-        '{prompt}'
-        """
-    elif mode == 'sentence':
-        rewrite_prompt = f"""
-        Rewrite the following sentence. Explain your choices:
-
-        '{prompt}'
-        """
-    return generate_response(rewrite_prompt, max_tokens=150)
-
-@app.route('/api/rewrite', methods=['POST'])
-def rewrite():
+@app.route('/api/analyze', methods=['POST'])
+def analyze():
     data = request.get_json()
     if not data:
         return jsonify({"error": "No input data provided"}), 400
 
-    text = data.get("text", "")
+    story = data.get("story", "")
+    highlighted_text = data.get("highlighted", "")
     mode = data.get("mode", "sentence")
 
-    if not text:
-        return jsonify({"error": "No text provided for rewriting"}), 400
+    if not highlighted_text:
+        return jsonify({"error": "No highlighted text provided"}), 400
 
-    # Generate a rewritten response
-    rewrite_response = rewrite_text(text, mode)
+    if mode == "word":
+        prompt = f"""
+        Replace the word '{highlighted_text}' in the following text:
+        '{story}'
+        
+        Provide a replacement word that fits seamlessly into the sentence and maintains its meaning and tone.
+        """
+        response = generate_response(prompt, max_tokens=20)
+        return jsonify({"word_replacement": response.strip()})
 
-    return jsonify({"rewrite": rewrite_response})
+    elif mode == "sentence":
+        prompt = f"""
+        Rewrite the sentence:
+        '{highlighted_text}'
+
+        Provide an alternative version that preserves the meaning but offers a fresh structure. Avoid flowery or terse language.
+        """
+        response = generate_response(prompt, max_tokens=150)
+        return jsonify({"sentence_rewrite": response.strip()})
+
+    return jsonify({"error": "Invalid mode specified"}), 400
 
 if __name__ == "__main__":
     app.run(port=5001)  # Running on port 5001
